@@ -18,27 +18,27 @@ const doctorSchema = new Schema(
       type: String,
       required: true,
     },
-    phone: {
-      type: String,
-      unique: true,
-      trim: true
-    },
-    photo: {
+    image: {
       type: String, 
+      required: true
     },
     experience: {
       type: Number,
+      required: true,
       min: 0
     },
     fee: {
       type: Number,
+      required: true,
       min: 0
     },
     about: {
-      type: String
+      type: String,
+      required: true
     },
-    specialization: {
-      type: [String]
+    speciality: {
+      type: [String],
+      required: true,
     },
     address: {
       street: { type: String, trim: true },
@@ -46,9 +46,15 @@ const doctorSchema = new Schema(
       state: { type: String, trim: true },
       zipCode: { type: String, trim: true },
     },
+    slot_booked: {
+      type: Object,
+      default: {}
+    }
   },
+  
   {
     timestamps: true,
+    minimize: false
   }
 );
 

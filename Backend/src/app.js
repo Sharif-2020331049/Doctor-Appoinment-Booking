@@ -1,18 +1,23 @@
 import express from 'express'
 import cors from 'cors'
-import { Appointment } from './models/appointment.model.js'
-import { Patient } from './models/patient.model.js'
-import { Doctor } from './models/doctor.model.js'
+import { addDoctor } from './controllers/admin.controller.js'
+import adminRouter from './routers/admin.route.js'
 
 const app = express()
 
-
+// middlewares
+// app.use(express.json())
 app.use(cors())
-app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.get('/', (req, res)=>{
-    res.send('App is running')
+
+// api endpoints
+app.use('/api/v1/admin', adminRouter)
+// localhost:8000/api/v1/admin/add-doctor
+
+
+app.get('/', (_req, res)=>{
+    res.send("API working")
 })
 
 export {app}
