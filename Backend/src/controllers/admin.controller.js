@@ -80,9 +80,15 @@ const deleteDoctor = asyncHandler( async (req, res)=>{
 // API for logIn Admin
 const loginAdmin = asyncHandler( async(req, res)=>{
    const { email, password } = req.body
+
+     // Validate input
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: "Email and password are required" });
+  }
+  
     
-   if(!(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD)){
-     throw new ApiError(401, "Invalid credentials")
+   if((email !== process.env.ADMIN_EMAIL) ||  (password !== process.env.ADMIN_PASSWORD)){
+      throw new ApiError(401, "Invalid credentials")
    }
 
     const token = jwt.sign(
@@ -92,6 +98,7 @@ const loginAdmin = asyncHandler( async(req, res)=>{
         },
         process.env.ACCESS_TOKEN_SECRET
     );
+    
 
     return res.
     status(201)
